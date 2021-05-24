@@ -34,4 +34,37 @@ function askQuestions() {
             "update employee role",
             "QUIT"
         ],
-  
+        name: "choice"
+    }).then(answers => {
+        console.log(answers.choice);
+        switch (answers.choice) {
+            case "view all employees":
+                viewEmployees()
+                break;
+
+            case "view all departments":
+                viewDepartments()
+                break;
+
+            case "add employee":
+                addEmployee()
+                break;
+
+            case "add department":
+                addDepartment()
+                break;
+
+            case "add role":
+                addRole()
+                break;
+
+            case "update employee role":
+                updateEmployeeRole();
+                break;
+
+            default:
+                connection.end()
+                break;
+        }
+    })
+}
