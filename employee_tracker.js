@@ -5,8 +5,8 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "123456789",
-    database: "employee_tracker_db"
+    password: "yourRootPassword",
+    database: "employee_DB"
 });
 
 connection.connect(function (err) {
