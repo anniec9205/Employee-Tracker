@@ -3,14 +3,8 @@ const inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
     host: "localhost",
-
-    // Your port; if not 3306
     port: 3306,
-
-    // Your username
     user: "root",
-
-    // Your password
     password: "123456789",
     database: "employee_tracker_db"
 });
@@ -80,5 +74,35 @@ function viewDepartments() {
     connection.query("SELECT * FROM department", function (err, data) {
         console.table(data);
         askQuestions();
+    })
+}
+
+function addEmployee() {
+    inquirer.prompt([{
+            type: "input",
+            name: "firstName",
+            message: "What is the employees first name?"
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "What is the employees last name?"
+        },
+        {
+            type: "number",
+            name: "roleId",
+            message: "What is the employees role ID"
+        },
+        {
+            type: "number",
+            name: "managerId",
+            message: "What is the employees manager's ID?"
+        }
+    ]).then(function(res) {
+        connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, data) {
+            if (err) throw err;
+            console.table("Successfully Inserted");
+            askQuestions();
+        })
     })
 }
